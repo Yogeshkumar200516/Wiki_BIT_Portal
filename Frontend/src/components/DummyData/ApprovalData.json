@@ -1,0 +1,173 @@
+[
+    {
+      "id": 1,
+      "number": 1,
+      "name": "Introduction to Strength of Materials",
+      "uploadedBy": "Dr. John Doe",
+      "uploadType": "New",
+      "approvalFor": "New Unit",
+      "updatedAt": "2025-01-27",
+      "createdAt": "2025-01-20",
+      "introduction": [
+        "1. Strength of Materials is a foundational subject in structural engineering.",
+        "2. It deals with the behavior of materials under different types of forces and loads.",
+        "3. Students learn about stress, strain, elasticity, and plasticity in materials.",
+        "4. This unit emphasizes the principles that govern material strength and stability.",
+        "5. The knowledge gained here is crucial for designing and analyzing structures."
+      ],
+      "summary": [
+        "1. Understand the fundamental principles of material behavior under stress.",
+        "2. Familiarize with terminologies like stress, strain, and deformation.",
+        "3. Learn to differentiate between elastic and plastic behavior of materials.",
+        "4. Grasp the significance of material properties in real-world applications.",
+        "5. Develop a foundation for advanced topics in mechanics and material science."
+      ],
+      "mindMap": "https://example.com/mindmap1",
+      "reference": [
+        "1. Strength of Materials by S. Ramamrutham - Comprehensive and detailed explanations.",
+        "2. Mechanics of Materials by Gere and Timoshenko - For a deeper understanding of concepts.",
+        "3. Engineering Mechanics by R.K. Bansal - Helpful for beginners.",
+        "4. Online journals and research papers - For up-to-date case studies.",
+        "5. Lecture notes from experienced faculty in the domain."
+      ],
+      "objectives": [
+        "1. To introduce the basic principles of stress and strain in engineering materials.",
+        "2. To understand the significance of material properties in engineering applications.",
+        "3. To explore the relationship between force, deformation, and material behavior.",
+        "4. To develop analytical skills for solving structural problems.",
+        "5. To establish a solid foundation for advanced material studies."
+      ],
+      "outcomes": [
+        "1. Students will be able to define stress, strain, and deformation accurately.",
+        "2. They will understand and apply material behavior principles in engineering scenarios.",
+        "3. Gain insights into the importance of selecting materials for structural purposes.",
+        "4. Learn to interpret and analyze experimental data related to material properties.",
+        "5. Build confidence in designing simple load-bearing structures."
+      ],
+      "noOfLessonPlans": 2,
+      "noOfRequests": 1,
+      "lessonPlanDetails": [
+        {
+          "lessonPlanNumber": 1,
+          "lessonPlanName": "Basic Concepts of Stress",
+          "introduction": [
+            "1. Definition and significance of stress in engineering materials.",
+            "2. Explanation of different types of stress such as tensile, compressive, and shear stress.",
+            "3. Real-life examples where stress analysis is critical.",
+            "4. The mathematical representation of stress using formulae and units.",
+            "5. Understanding stress distribution and its implications on structural integrity."
+          ],
+          "lectureMaterial": "https://example.com/stress_material.pdf",
+          "lectureVideoLink": "https://example.com/stress_video",
+          "discourseLink": "https://example.com/stress_discourse"
+        },
+        {
+          "lessonPlanNumber": 2,
+          "lessonPlanName": "Types of Strain",
+          "introduction": [
+            "1. Overview of strain and its relationship to stress in materials.",
+            "2. Classification of strain into normal strain, shear strain, and volumetric strain.",
+            "3. How strain influences the deformation of different materials.",
+            "4. The role of strain in determining material ductility and brittleness.",
+            "5. Practical examples showcasing strain measurement in real-world applications."
+          ],
+          "lectureMaterial": "https://example.com/strain_material.pdf",
+          "lectureVideoLink": "https://example.com/strain_video",
+          "discourseLink": "https://example.com/strain_discourse"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "number": 2,
+      "name": "Stress and Strain",
+      "uploadedBy": "Dr. Jane Smith",
+      "uploadType": "Updated",
+      "approvalFor": "Lesson Plans",
+      "updatedAt": "2025-01-26",
+      "createdAt": "2025-01-19",
+      "introduction": [
+        "1. This unit dives deep into the stress-strain relationship in materials.",
+        "2. It explains how materials respond to various loads and forces.",
+        "3. A detailed exploration of Hooke’s Law and its practical applications.",
+        "4. The unit covers elastic and plastic deformation in depth.",
+        "5. Practical scenarios to analyze and interpret stress-strain diagrams."
+      ],
+      "summary": [
+        "1. Learn to interpret and analyze stress-strain curves for different materials.",
+        "2. Understand the transition from elastic to plastic behavior in materials.",
+        "3. Gain insights into the factors affecting material strength and durability.",
+        "4. Explore the applications of stress-strain analysis in engineering.",
+        "5. Familiarize with experimental methods for stress-strain measurement."
+      ],
+      "mindMap": "https://example.com/mindmap2",
+      "reference": [
+        "1. Mechanics of Materials by R.C. Hibbeler - An advanced guide.",
+        "2. Stress and Strain in Materials by Popov - For understanding fundamentals.",
+        "3. Online resources and videos for visual learning.",
+        "4. Lecture notes for real-world problem-solving examples.",
+        "5. Research articles on material testing and behavior."
+      ],
+      "objectives": [
+        "1. To analyze stress-strain behavior in different engineering materials.",
+        "2. To learn the significance of elastic and plastic limits.",
+        "3. To interpret experimental stress-strain data accurately.",
+        "4. To develop problem-solving skills for material deformation scenarios.",
+        "5. To integrate stress-strain knowledge into engineering applications."
+      ],
+      "outcomes": [
+        "1. Students will understand the stress-strain behavior in detail.",
+        "2. They will be able to draw and interpret stress-strain curves.",
+        "3. Gain knowledge about material failure modes and safety factors.",
+        "4. Develop an analytical mindset for tackling engineering problems.",
+        "5. Prepare for advanced topics in material science and engineering."
+      ],
+      "noOfLessonPlans": 3,
+      "noOfRequests": 2,
+      "lessonPlanDetails": [
+        {
+          "lessonPlanNumber": 1,
+          "lessonPlanName": "Elastic and Plastic Deformation",
+          "introduction": [
+            "1. Differentiation between elastic and plastic behavior in materials.",
+            "2. Explanation of yield point and its importance.",
+            "3. Real-world examples of elastic and plastic deformation in structures.",
+            "4. Mathematical modeling of elastic and plastic behavior.",
+            "5. Experiments to study the deformation of materials under loads."
+          ],
+          "lectureMaterial": "https://example.com/elastic_material.pdf",
+          "lectureVideoLink": "https://example.com/elastic_video",
+          "discourseLink": "https://example.com/elastic_discourse"
+        },
+        {
+          "lessonPlanNumber": 2,
+          "lessonPlanName": "Stress-Strain Curve",
+          "introduction": [
+            "1. Detailed analysis of stress-strain curves for various materials.",
+            "2. Components of a typical stress-strain diagram.",
+            "3. The significance of key points like elastic limit and ultimate strength.",
+            "4. The role of stress-strain curves in material selection and design.",
+            "5. Real-life case studies of stress-strain analysis."
+          ],
+          "lectureMaterial": "https://example.com/stress_strain_curve_material.pdf",
+          "lectureVideoLink": "https://example.com/stress_strain_curve_video",
+          "discourseLink": "https://example.com/stress_strain_curve_discourse"
+        },
+        {
+          "lessonPlanNumber": 3,
+          "lessonPlanName": "Hooke’s Law",
+          "introduction": [
+            "1. Fundamental principles of Hooke’s Law and its derivation.",
+            "2. Explanation of modulus of elasticity and its significance.",
+            "3. Applications of Hooke’s Law in engineering design.",
+            "4. Limitations and assumptions of Hooke’s Law.",
+            "5. Practical demonstrations and problem-solving exercises."
+          ],
+          "lectureMaterial": "https://example.com/hookes_law_material.pdf",
+          "lectureVideoLink": "https://example.com/hookes_law_video",
+          "discourseLink": "https://example.com/hookes_law_discourse"
+        }
+      ]
+    }
+  ]
+  
