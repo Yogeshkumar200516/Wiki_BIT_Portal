@@ -3,7 +3,10 @@ const { db } = require('../config/config'); // Import correctly
 const AuthModel = {
   getUserByEmail: async (email) => {
     try {
-      const [rows] = await db.query('SELECT user_id, role FROM master_users WHERE email = ?', [email]);
+      const [rows] = await db.query(
+        "SELECT user_id, role, name, email FROM master_users WHERE email = ?",
+        [email]
+      );
       return rows.length > 0 ? rows[0] : null; // Return user if found, else null
     } catch (error) {
       console.error('Database Query Error:', error);
@@ -13,3 +16,4 @@ const AuthModel = {
 };
 
 module.exports = AuthModel;
+ 

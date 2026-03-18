@@ -1,38 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext.jsx";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import authImage from "../../assets/images/auth.png";
 import logoImage from "../../assets/images/logo.png";
-import './Login.css';
+import "./Login.css";
 
 const Login = () => {
   const { login } = useAuth();
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
+
+  // ✅ THIS IS THE IMPORTANT PART
+  useEffect(() => {
+    // Disable scroll when login page loads
+    document.body.style.overflow = "hidden";
+
+    // Re-enable scroll when leaving login page
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
+
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+    role: "Student",
+  });
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleGoogleLogin = async () => {
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
     setLoading(true);
     setError("");
-
-    // Dummy user data (Replace with actual Google login API)
-    // const userData = {
-    //   email: "yogeshkumar.admin@bitsathy.ac.in",
-    //   user_id: "AD1001",
-    //   role: "Admin",
-    // };
-    const userData = {
-      email: "yogeshkumar.faculty@bitsathy.ac.in",
-      user_id: "ME10101",
-      role: "Faculty",
-    };
-    // const userData = {
-    //   email: "yogeshkumar.student@bitsathy.ac.in",
-    //   user_id: "7376231ME161",
-    //   role: "Student",
-    // };
 
     try {
       const response = await fetch("http://localhost:4000/api/auth/login", {
@@ -40,31 +49,31 @@ const Login = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(userData),
+        body: JSON.stringify({
+          email: formData.username,
+          user_id: formData.password,
+          role: formData.role,
+        }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        login(data.user); // Update AuthContext state immediately
-        
-        // Redirect based on role
-        if (data.user.role === "Student") {
-          navigate("/");
-        } else if (data.user.role === "Faculty") {
-          navigate("/");
-        } else if (data.user.role === "Admin") {
-          navigate("/");
-        }
+        login(data.user);
+        navigate("/");
       } else {
         setError(data.message);
       }
-    } catch (error) {
-      console.error("Login Error:", error);
-      setError("Server error. Please try again later.");
+    } catch (err) {
+      console.error("Login Error:", err);
+      setError("Server error. Please try again.");
     }
 
     setLoading(false);
+  };
+
+  const handleGoogleLogin = () => {
+    alert("Google login not changed");
   };
 
   return (
@@ -72,30 +81,75 @@ const Login = () => {
       <div className="login-container">
         <div className="login-left">
           <div className="left">
-            <h1 className="login-title">Wiki BIT</h1>
+            <h1 className="login-title">AcadFlow</h1>
             <p className="login-subtitle">
-              A student thrives on the foundation of knowledge, the light of curiosity, and the guidance of resources, which empower their journey to success.
+              Learning grows where knowledge meets opportunity.
             </p>
             <div className="login-illustration">
               <img src={authImage} alt="Illustration" />
             </div>
           </div>
         </div>
+
         <div className="login-right">
           <img src={logoImage} alt="Logo" className="login-logo" />
-          <div className="login-signin">Sign In</div>
-          <div className="login-access">Get access to your account</div>
+
           <hr className="divider" />
-          {error && <p className="error-message">{error}</p>}
-          <form className="login-form">
+
+          <p className="error-message">{error}</p>
+
+          <form className="login-form" onSubmit={handleLogin}>
+            <input
+              type="text"
+              name="username"
+              placeholder="Username (Email)"
+              className="login-input"
+              value={formData.username}
+              onChange={handleChange}
+              required
+            />
+
+            <input
+              type="password"
+              name="password"
+              placeholder="Password (User ID)"
+              className="login-input"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+
+            <select
+              name="role"
+              className="login-input"
+              value={formData.role}
+              onChange={handleChange}
+            >
+              <option value="" disabled>
+                Select Role
+              </option>
+              <option value="Student">Student</option>
+              <option value="Faculty">Faculty</option>
+              <option value="Admin">Admin</option>
+            </select>
+
+            <button
+              type="submit"
+              className="login-button"
+              disabled={loading}
+            >
+              {loading ? "Signing in..." : "Login"}
+            </button>
+
+            <div className="or-divider">OR</div>
+
             <button
               type="button"
               className="login-button-google"
               onClick={handleGoogleLogin}
-              disabled={loading}
             >
               <FontAwesomeIcon icon={faGoogle} className="google-icon" />
-              {loading ? "Signing in..." : "Sign in with Google"}
+              Sign in with Google
             </button>
           </form>
         </div>

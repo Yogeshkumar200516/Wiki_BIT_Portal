@@ -1,0 +1,63 @@
+body {
+    font-family: "Poppins", sans-serif;
+    background-color: #f3f4f6;
+}
+
+.dashboard-container {
+    margin: 20px auto;
+    padding: 30px;
+}
+
+.student-info {
+    background: linear-gradient(90deg, #673ab7, #512da8);
+    color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.student-info h2 {
+    font-size: 2rem;
+    margin-bottom: 5px;
+}
+
+.student-info p {
+    font-size: 1.1rem;
+}
+
+.course-section {
+    margin-top: 20px;
+    background: white;
+    border-radius: 8px;
+}
+
+.course-section h3 {
+    color: #673ab7;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background: #673ab7;
+    color: white;
+}
+
+.totals-row {
+    font-weight: bold;
+    background-color: #e8eaf6;
+    color: #000;
+}

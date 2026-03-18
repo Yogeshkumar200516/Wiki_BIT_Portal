@@ -1,0 +1,95 @@
+/* ═══════════════════════════════════════════════════════════════
+   GLOBAL FONT OVERRIDE — Excon for entire app
+   Import this once in your main.jsx or App.jsx:
+   import './global-font.css';
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Universal reset to Excon ─────────────────────────────────── */
+*,
+*::before,
+*::after,
+html,
+body,
+#root {
+  font-family: 'Excon', sans-serif !important;
+}
+
+/* ── MUI component overrides ──────────────────────────────────── */
+.MuiTypography-root,
+.MuiButton-root,
+.MuiInputBase-root,
+.MuiInputLabel-root,
+.MuiMenuItem-root,
+.MuiSelect-root,
+.MuiFormLabel-root,
+.MuiFormHelperText-root,
+.MuiTableCell-root,
+.MuiTablePagination-root,
+.MuiTablePagination-selectLabel,
+.MuiTablePagination-displayedRows,
+.MuiChip-root,
+.MuiChip-label,
+.MuiAlert-root,
+.MuiAlert-message,
+.MuiSnackbar-root,
+.MuiDialog-root,
+.MuiDialogTitle-root,
+.MuiDialogContent-root,
+.MuiDialogContentText-root,
+.MuiDialogActions-root,
+.MuiTooltip-tooltip,
+.MuiTab-root,
+.MuiTabs-root,
+.MuiListItem-root,
+.MuiListItemText-root,
+.MuiListItemText-primary,
+.MuiListItemText-secondary,
+.MuiAccordion-root,
+.MuiAccordionSummary-root,
+.MuiAccordionDetails-root,
+.MuiBadge-root,
+.MuiAutocomplete-root,
+.MuiAutocomplete-option,
+.MuiPaper-root,
+.MuiCard-root,
+.MuiCardContent-root,
+.MuiCardHeader-root,
+.MuiCardActions-root,
+.MuiMenu-root,
+.MuiPopover-root,
+.MuiPickersDay-root,
+.MuiCalendarPicker-root,
+.MuiDataGrid-root,
+.MuiDataGrid-cell,
+.MuiDataGrid-columnHeader,
+.MuiDataGrid-footerContainer {
+  font-family: 'Excon', sans-serif !important;
+}
+
+/* ── Any remaining HTML elements ─────────────────────────────── */
+h1, h2, h3, h4, h5, h6,
+p, span, a, li, ul, ol,
+label, input, textarea, select, button,
+th, td, caption,
+div, section, article, header, footer, nav, main,
+strong, em, small, code, pre {
+  font-family: 'Excon', sans-serif !important;
+}
+
+/* ── Plus Jakarta Sans and DM Sans overrides 
+   (used in our custom CSS files) ────────────────────────────── */
+[style*="Plus Jakarta Sans"],
+[style*="DM Sans"],
+[style*="DM Mono"],
+[style*="Diphylleia"] {
+  font-family: 'Excon', sans-serif !important;
+}
+
+/* ── Recharts (chart labels, tooltips, axes) ─────────────────── */
+.recharts-text,
+.recharts-legend-item-text,
+.recharts-tooltip-label,
+.recharts-tooltip-item,
+.recharts-cartesian-axis-tick-value {
+  font-family: 'Excon', sans-serif !important;
+}

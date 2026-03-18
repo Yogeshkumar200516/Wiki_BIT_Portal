@@ -3,193 +3,262 @@ import React from 'react';
 import { Card, CardContent, Box, Typography, Button, IconButton } from '@mui/material';
 import { CloudUploadRounded, InfoRounded, Edit, AutoDeleteRounded } from '@mui/icons-material';
 
-const UnitCard = ({ unit, handleUploadClick, uploadedUnits, handleDetailsModalOpen, handleModalOpen, handleDeleteDialogOpen, navigate, lessonPlanCount }) => {
+const UnitCard = ({ unit, courseMappingId, handleUploadClick, uploadedUnits, getHasChanges, handleDetailsModalOpen, handleModalOpen, handleDeleteDialogOpen, navigate, lessonPlanCount }) => {
+  const isUploaded = uploadedUnits.includes(unit.number) && getHasChanges(unit.number) !== "true";
+
+  const statusClass =
+    unit.status === "Approved" ? "approved" :
+    unit.status === "Rejected" ? "rejected" : "pending";
+
   return (
-    <Card
-      sx={{
-        borderRadius: "12px",
-        transition: "transform 0.3s, box-shadow 0.3s",
-        ":hover": {
-          transform: "scale(1.03)",
-          boxShadow: "0 8px 20px rgba(0, 0, 0, 0.15)",
-        },
-        height: "100%", // Ensures consistent height
-      }}
-    >
+    <Card className="uc-card" sx={{ borderRadius: "16px", height: "100%" }}>
       <CardContent
         sx={{
-          background: 'linear-gradient(135deg,rgb(245, 242, 249),rgb(245, 243, 247),rgb(242, 240, 247),rgb(247, 245, 251))',
-          borderRadius: "12px",
-          border: '1px solid #673ab7',
-          boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
-          padding: { xs: "1rem", sm: "1.5rem" },
+          background: 'linear-gradient(145deg, #ffffff 0%, #f9f7ff 100%)',
+          borderRadius: "16px",
+          padding: { xs: "16px", sm: "20px" },
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          height: "100%", // Ensures consistent height for content
+          height: "100%",
         }}
       >
-        <Box display="flex" alignItems="center" justifyContent="space-between">
+        {/* Top row: Unit number + status + upload */}
+        <Box display="flex" alignItems="center" justifyContent="space-between" mb={1}>
           <Typography
-            variant="subtitle1"
-            fontWeight="bold"
+            className="uc-unit-num"
             sx={{
-              fontSize: "1.3rem",
-              color: "#757575",
+              fontFamily: "'Outfit', sans-serif",
+              fontWeight: 700,
+              fontSize: "0.78rem",
+              textTransform: "uppercase",
+              letterSpacing: "0.1em",
+              color: "#64748b",
             }}
           >
             Unit {unit.number}
           </Typography>
-          <div style={{ display: 'flex', gap: '0px', alignItems: 'center' }}>
+
+          <Box display="flex" alignItems="center" gap={1}>
+            {/* Status badge */}
             <Box
               sx={{
-                display: 'flex',
+                display: 'inline-flex',
                 alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor:
-                  unit.status === "Approved"
-                    ? "#1b5e20"
-                    : unit.status === "Pending"
-                    ? "#f57f17"
-                    : "#b71c1c",
-                borderRadius: "30px",
-                padding: "5px 14px",
-                color: "#fff",
-                fontSize: "0.8rem",
-                fontWeight: "bold",
-                textTransform: "none",
+                gap: '5px',
+                fontFamily: "'Outfit', sans-serif",
+                fontWeight: 700,
+                fontSize: "0.72rem",
+                textTransform: "uppercase",
+                letterSpacing: "0.05em",
+                borderRadius: "20px",
+                padding: "4px 12px",
+                background:
+                  unit.status === "Approved" ? "#e8f5e9" :
+                  unit.status === "Rejected" ? "#ffebee" : "#fff8e1",
+                color:
+                  unit.status === "Approved" ? "#1b5e20" :
+                  unit.status === "Rejected" ? "#b71c1c" : "#f57f17",
+                '&::before': {
+                  content: '""',
+                  width: "7px",
+                  height: "7px",
+                  borderRadius: "50%",
+                  background: "currentColor",
+                  display: "inline-block",
+                  ...(unit.status === "Pending" && {
+                    animation: "pulse 1.5s ease infinite",
+                  }),
+                },
+                '@keyframes pulse': {
+                  '0%, 100%': { opacity: 1, transform: 'scale(1)' },
+                  '50%': { opacity: 0.4, transform: 'scale(0.75)' },
+                },
               }}
             >
               {unit.status}
             </Box>
+
+            {/* Upload button */}
             <Button
-  onClick={() => handleUploadClick(unit)}
-  disabled={uploadedUnits.includes(unit.number) && localStorage.getItem(`hasChanges-${unit.number}`) !== "true"}
-  sx={{
-    ml: 1,
-    fontSize: "0.8rem",
-    fontWeight: "bold",
-    textTransform: "none",
-    backgroundColor: uploadedUnits.includes(unit.number) && localStorage.getItem(`hasChanges-${unit.number}`) !== "true" ? "#ccc" : "#673ab7",
-    borderRadius: "6px",
-    padding: "5px 10px",
-    color: uploadedUnits.includes(unit.number) && localStorage.getItem(`hasChanges-${unit.number}`) !== "true" ? "#000" : "#fff",
-    "&:hover": {
-      backgroundColor: uploadedUnits.includes(unit.number) && localStorage.getItem(`hasChanges-${unit.number}`) !== "true" ? "#ccc" : "#512da8",
-    },
-  }}
->
-  <CloudUploadRounded sx={{ mr: 1 }} />
-  {uploadedUnits.includes(unit.number) && localStorage.getItem(`hasChanges-${unit.number}`) !== "true"
-    ? "Uploaded"
-    : "Upload"}
-</Button>
-
-
-          </div>
+              onClick={() => handleUploadClick(unit)}
+              disabled={isUploaded}
+              className={isUploaded ? "uc-upload-btn uploaded" : "uc-upload-btn active"}
+              sx={{
+                fontFamily: "'Outfit', sans-serif",
+                fontWeight: 700,
+                textTransform: "none",
+                fontSize: "0.78rem",
+                borderRadius: "8px",
+                padding: "5px 12px",
+                minWidth: 0,
+                background: isUploaded ? "#f1f5f9 !important" : "#673ab7 !important",
+                color: isUploaded ? "#94a3b8 !important" : "#fff !important",
+                boxShadow: isUploaded ? "none" : "0 2px 8px rgba(103,58,183,0.25)",
+                transition: "all 0.22s ease",
+                '&:hover': {
+                  background: isUploaded ? "#f1f5f9 !important" : "#4527a0 !important",
+                  transform: isUploaded ? "none" : "translateY(-1px)",
+                  boxShadow: isUploaded ? "none" : "0 4px 14px rgba(103,58,183,0.30) !important",
+                },
+                '&.Mui-disabled': {
+                  background: "#f1f5f9 !important",
+                  color: "#94a3b8 !important",
+                  opacity: 1,
+                },
+              }}
+            >
+              <CloudUploadRounded sx={{ mr: 0.5, fontSize: "0.95rem" }} />
+              {isUploaded ? "Uploaded" : "Upload"}
+            </Button>
+          </Box>
         </Box>
 
+        {/* Unit name */}
         <Typography
-          variant="h6"
-          fontWeight="bold"
-          color="#673ab7"
           sx={{
-            fontWeight: 900,
-            whiteSpace: "normal",
-            overflow: "hidden",
-            maxWidth: "100%",
-            textAlign: 'left',
+            fontFamily: "'Outfit', sans-serif",
+            fontWeight: 800,
             color: "#673ab7",
-            textOverflow: "ellipsis",
-            fontSize: { xs: '1.1rem', sm: '1.2rem' },
-            mt: "20px",
-            wordWrap: "break-word",
-            overflowWrap: "break-word",
-            display: "block",
-            height: "60px",
-            lineHeight: "1.5rem",
+            fontSize: { xs: "1rem", sm: "1.1rem" },
+            lineHeight: 1.35,
+            mt: 0.5,
+            mb: 1,
+            wordBreak: "break-word",
+            minHeight: "50px",
           }}
         >
           {unit.name}
         </Typography>
 
-        <Typography variant="body2" sx={{
-          mt: 2,
-          color: "#616161",
-          fontWeight: 600,
-          textAlign: 'left',
-          fontSize: '1rem',
-        }}>
+        {/* Lesson plan count pill */}
+        <Box
+          sx={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '5px',
+            background: "#ede7f6",
+            color: "#673ab7",
+            fontFamily: "'Outfit', sans-serif",
+            fontWeight: 700,
+            fontSize: "0.78rem",
+            borderRadius: "20px",
+            padding: "3px 10px",
+            width: "fit-content",
+            mb: 1.5,
+          }}
+        >
           {lessonPlanCount > 0
-            ? `${lessonPlanCount} Lesson Plan${lessonPlanCount > 1 ? "s" : ""} in this Unit`
-            : "No Lesson Plans have been added yet"}
-        </Typography>
+            ? `${lessonPlanCount} Lesson Plan${lessonPlanCount > 1 ? "s" : ""}`
+            : "No Lesson Plans yet"}
+        </Box>
 
+        {/* Timestamps */}
         <Typography
           variant="body2"
-          color="text.secondary"
           sx={{
-            mt: 1,
-            mb: 0,
-            fontWeight: "bold",
-            textAlign: "left",
-            color: "#757575",
+            fontFamily: "'JetBrains Mono', monospace",
+            fontSize: "0.72rem",
+            color: "#94a3b8",
+            lineHeight: 1.8,
+            mb: 2,
           }}
         >
           Created: {unit.created ? new Date(unit.created).toLocaleString() : "N/A"}
           <br />
-          Last updated: {unit.lastUpdated ? new Date(unit.lastUpdated).toLocaleString() : "N/A"}
+          Updated: {unit.lastUpdated ? new Date(unit.lastUpdated).toLocaleString() : "N/A"}
         </Typography>
 
-        <Box mt={2} display="flex" justifyContent="space-between" alignItems="center">
+        {/* Action row */}
+        <Box display="flex" justifyContent="space-between" alignItems="center">
           <Button
             variant="outlined"
-            onClick={() => navigate(`/lesson-plan/${unit.number}`, { state: { unitName: unit.name } })}
+            onClick={() =>
+              navigate(`/lesson-plan/${unit.number}`, {
+                state: { unitName: unit.name, courseMappingId },
+              })
+            }
             sx={{
-              fontWeight: "bold",
+              fontFamily: "'Outfit', sans-serif",
+              fontWeight: 700,
               textTransform: "none",
               color: "#673ab7",
-              fontSize: { xs: '14px', sm: '16px' },
-              border: "1px solid #673ab7",
+              fontSize: { xs: "0.78rem", sm: "0.85rem" },
+              border: "1.5px solid #673ab7",
               borderRadius: "8px",
-              padding: { xs: '5px 10px', sm: '6px 16px' },
-              backgroundColor: '#fff',
+              padding: { xs: "5px 10px", sm: "6px 14px" },
+              background: "#fff",
+              transition: "all 0.2s ease",
               "&:hover": {
-                backgroundColor: "#673ab7",
+                background: "#673ab7",
                 color: "#fff",
+                boxShadow: "0 4px 14px rgba(103,58,183,0.25)",
+                transform: "translateY(-1px)",
               },
             }}
           >
             View Lesson Plan
           </Button>
-          <Box sx={{ display: 'flex' }}>
+
+          <Box display="flex" gap="6px">
             <IconButton
-              color="primary"
               onClick={() => handleDetailsModalOpen(unit)}
               sx={{
                 color: '#673ab7',
-                ml: 2,
-                zIndex: 1,
-                border: '2px solid #673ab7',
-                backgroundColor: '#fff',
-                '&:hover': { backgroundColor: '#673ab7', color: '#fff' }
+                border: '1.5px solid #673ab7',
+                borderRadius: "10px",
+                width: 36, height: 36,
+                background: '#fff',
+                transition: "all 0.2s cubic-bezier(0.34,1.56,0.64,1)",
+                '&:hover': {
+                  background: '#673ab7',
+                  color: '#fff',
+                  transform: "scale(1.1) rotate(-5deg)",
+                  boxShadow: "0 4px 12px rgba(103,58,183,0.25)",
+                },
               }}
             >
-              <InfoRounded />
+              <InfoRounded sx={{ fontSize: "1.1rem" }} />
             </IconButton>
+
             <IconButton
-              color="primary"
               onClick={() => handleModalOpen(unit)}
-              sx={{ color: '#673ab7', zIndex: 1, ml: { xs: '5px', sm: '10px' }, fontSize: { xs: '0.6rem', sm: '1rem' }, border: '2px solid #673ab7', backgroundColor: '#fff', '&:hover': { backgroundColor: '#673ab7', color: '#fff' } }}
+              sx={{
+                color: '#673ab7',
+                border: '1.5px solid #673ab7',
+                borderRadius: "10px",
+                width: 36, height: 36,
+                background: '#fff',
+                transition: "all 0.2s cubic-bezier(0.34,1.56,0.64,1)",
+                '&:hover': {
+                  background: '#673ab7',
+                  color: '#fff',
+                  transform: "scale(1.1) rotate(-5deg)",
+                  boxShadow: "0 4px 12px rgba(103,58,183,0.25)",
+                },
+              }}
             >
-              <Edit />
+              <Edit sx={{ fontSize: "1.1rem" }} />
             </IconButton>
+
             <IconButton
-              color="error"
               onClick={() => handleDeleteDialogOpen(unit)}
-              sx={{ color: '#b71c1c', ml: { xs: '5px', sm: '10px' }, zIndex: 1, border: '2px solid #b71c1c', backgroundColor: '#fff', '&:hover': { backgroundColor: '#b71c1c', color: '#fff' } }}
+              sx={{
+                color: '#b71c1c',
+                border: '1.5px solid #b71c1c',
+                borderRadius: "10px",
+                width: 36, height: 36,
+                background: '#fff',
+                transition: "all 0.2s cubic-bezier(0.34,1.56,0.64,1)",
+                '&:hover': {
+                  background: '#b71c1c',
+                  color: '#fff',
+                  transform: "scale(1.1) rotate(-5deg)",
+                  boxShadow: "0 4px 12px rgba(183,28,28,0.25)",
+                },
+              }}
             >
-              <AutoDeleteRounded />
+              <AutoDeleteRounded sx={{ fontSize: "1.1rem" }} />
             </IconButton>
           </Box>
         </Box>

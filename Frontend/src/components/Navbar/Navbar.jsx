@@ -103,7 +103,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 
-function Navbar({ role, isDrawerOpen, setDrawerOpen, isDrawerHidden, setDrawerHidden, onLogout }) {
+function Navbar({ role, userName, isDrawerOpen, setDrawerOpen, isDrawerHidden, setDrawerHidden, onLogout }) {
 
   const theme = useTheme();
   const location = useLocation();
@@ -129,7 +129,7 @@ function Navbar({ role, isDrawerOpen, setDrawerOpen, isDrawerHidden, setDrawerHi
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const openProfileMenu = Boolean(anchorEl);
-  const userName = "Yogesh Kumar S"; // Use dynamic user name here
+  const displayName = userName || "User";
 
   const handleDrawerToggle = () => {
     setDrawerOpen((prev) => !prev);
@@ -204,20 +204,21 @@ React.useEffect(() => {
   const menuOptions = {
     Student: [
       { text: 'Student Dashboard', icon: <DashboardRoundedIcon />, link: '/' },
-      { text: 'Downloads', icon: <CloudDownload />, link: '/downloads' },
+      { text: 'Complaint Status', icon: <CloudDownload />, link: '/ComplaintStatus' },
       { text: 'Lecture Materials', icon: <LibraryBooks />, link: '/lecture-materials' }
     ],
     Faculty: [
       { text: 'Faculty Dashboard', icon: <DashboardRoundedIcon />, link: '/' },
       { text: 'Notification', icon: <Notifications />, link: '/notifications' },
       { text: 'Upload Materials', icon: <CloudUpload />, link: '/upload-materials' },
-      { text: 'Activity Approval', icon: <CheckCircle />, link: '/activity-approval' },
       { text: 'Activity Status', icon: <Assessment />, link: '/activity-status' },
-      { text: 'History', icon: <History />, link: '/history' }
     ],
     Admin: [
       { text: 'Admin Dashboard', icon: <DashboardRoundedIcon />, link: '/' },
-      { text: 'Faculty Assignment', icon: <PersonSearchRoundedIcon />, link: '/faculty-assignment' }
+      { text: 'Faculty Assignment', icon: <PersonSearchRoundedIcon />, link: '/faculty-assignment' },
+      { text: 'Complaint Review', icon: <CheckCircle />, link: '/complaint-review' },
+      { text: 'Score Monitoring', icon: <Assessment />, link: '/faculty-score-monitoring' },
+      { text: 'Materials Monitoring', icon: <History />, link: '/lecture-materials-monitoring' }
     ]
   };
   
@@ -246,7 +247,7 @@ React.useEffect(() => {
 </IconButton>
 
 
-    {/* Conditionally Render Wiki BIT Text */}
+    {/* Conditionally Render Acad Flow Text */}
     {!isDrawerOpen && (
       <Typography
         variant="h6"
@@ -266,7 +267,7 @@ React.useEffect(() => {
         icon={faGraduationCap} 
         style={{ fontSize: '26px', fontWeight: 'bold', color: '#673ab7' }} // Custom font size
       />
-        Wiki BIT
+        Acad Flow
       </Typography>
     )}
 
@@ -282,7 +283,7 @@ React.useEffect(() => {
       fontWeight: 'bold' // Optional: Make the letter bold
     }}
   >
-    {userName.charAt(0).toUpperCase()}
+    {displayName.charAt(0).toUpperCase()}
   </Avatar>
 </IconButton>
 <Menu
@@ -302,7 +303,7 @@ React.useEffect(() => {
         padding: '0px 0', // Add padding for better spacing
       }}
     >
-      <strong>{userName}</strong>
+      <strong>{displayName}</strong>
     </Typography>
   </MenuItem>
   <Divider />
@@ -365,7 +366,7 @@ React.useEffect(() => {
         icon={faGraduationCap} 
         style={{ fontSize: '30px', fontWeight: 'bold', color: '#673ab7' }} // Custom font size
       />
-      Wiki BIT
+      Acad Flow
     </Typography>
     <IconButton onClick={handleDrawerClosed} sx={{color: '#673ab7'}}>
       {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}

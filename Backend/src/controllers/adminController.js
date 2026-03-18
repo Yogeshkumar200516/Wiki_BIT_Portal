@@ -1,6 +1,8 @@
 const courseModel = require('../models/AdminModals/courseModal');
 const facultyModel = require('../models/AdminModals/facultyModal');
 const facultyCourseModel = require('../models/AdminModals/facultyCourseModal');
+const complaintModel = require("../models/complaintModel");
+const materialModel = require("../models/materialModel");
 
 exports.getAllCourses = async (req, res) => {
     try {
@@ -91,7 +93,7 @@ exports.updateFacultyAssignment = async (req, res) => {
     }
   };
 
-  exports.getAssignedFacultiesByUserId = async (req, res) => {
+exports.getAssignedFacultiesByUserId = async (req, res) => {
     try {
         const userId = req.params.userId; // Extract user_id from URL
         console.log("Received userId:", userId); // ✅ Log userId for debugging
@@ -110,6 +112,81 @@ exports.updateFacultyAssignment = async (req, res) => {
             message: error.message,
         });
     }
+};
+
+exports.getAllComplaints = async (req, res) => {
+  try {
+    const complaints = await complaintModel.getAllComplaints();
+    res.status(200).json({ success: true, data: complaints });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+exports.reviewComplaint = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { decision, reason, targetFacultyId } = req.body;
+
+    if (!decision || !reason) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Decision and reason are required" });
+    }
+
+    const updatedComplaint = await complaintModel.reviewComplaint({
+      complaintId: id,
+      decision,
+      reason,
+      targetFacultyId,
+    });
+
+    res.status(200).json({ success: true, data: updatedComplaint });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+exports.getFacultyScores = async (req, res) => {
+  try {
+    const faculties = await complaintModel.getFacultyScores();
+    res.status(200).json({ success: true, data: faculties });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+exports.getAllLessonPlans = async (req, res) => {
+  try {
+    const materials = await materialModel.getAllLessonPlans();
+    res.status(200).json({ success: true, data: materials });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+exports.approveLessonPlan = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updated = await materialModel.updateLessonPlanStatus(id, "Approved", "");
+    res.status(200).json({ success: true, data: updated });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+exports.rejectLessonPlan = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { reason } = req.body;
+    if (!reason) {
+      return res.status(400).json({ success: false, message: "Reason is required" });
+    }
+    const updated = await materialModel.updateLessonPlanStatus(id, "Rejected", reason);
+    res.status(200).json({ success: true, data: updated });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
 };
 
   

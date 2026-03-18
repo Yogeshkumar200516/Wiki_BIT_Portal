@@ -129,7 +129,7 @@ function Navbar({ role, isDrawerOpen, setDrawerOpen, isDrawerHidden, setDrawerHi
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const openProfileMenu = Boolean(anchorEl);
-  const userName = "Yogesh Kumar S"; // Use dynamic user name here
+  const userName = "Jeyasabari S"; // Use dynamic user name here
 
   const handleDrawerToggle = () => {
     setDrawerOpen((prev) => !prev);

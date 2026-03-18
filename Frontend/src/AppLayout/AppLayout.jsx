@@ -3,16 +3,18 @@ import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Navbar from '../components/Navbar/Navbar';
 import Student from '../pages/Student/StudentDashboard/Student';
-import Downloads from '../pages/Student/Downloads/Downloads';
+import ComplaintStatus from '../pages/Student/ComplaintStatus/ComplaintStatus'; 
 import Materials from '../pages/Student/LectureMaterials/Materials';
+import CourseMaterials from '../pages/Student/CourseMaterials/CourseMaterials';
 import Faculty from '../pages/Faculty/FacultyDashboard/Faculty';
 import Notifications from '../pages/Faculty/Notifications/Notifications';
 import Upload from '../pages/Faculty/UploadMaterials/Upload';
-import Approval from '../pages/Faculty/ActivityApproval/Approval';
 import Status from '../pages/Faculty/ActivityStatus/Status';
-import History from '../pages/Faculty/History/History';
 import Admin from '../pages/Admin/AdminDashboard/Admin';
 import FacultyAssign from '../pages/Admin/FacultyAssignment/FacultyAssign';
+import ComplaintReview from '../pages/Admin/ComplaintReview/ComplaintReview';
+import FacultyScoreMonitoring from '../pages/Admin/FacultyScoreMonitoring/FacultyScoreMonitoring';
+import LectureMaterialsMonitoring from '../pages/Admin/LectureMaterialsMonitoring/LectureMaterialsMonitoring';
 import LessonPlan from '../pages/Faculty/UploadMaterials/LessonPlan';
 import Login from '../components/LoginPage/Login';
 
@@ -81,6 +83,7 @@ function AppLayout() {
             {/* Navbar */}
             <Navbar
                 role={user.role}
+                userName={user.name || user.user_id}
                 isDrawerOpen={open}
                 setDrawerOpen={setOpen}
                 isDrawerHidden={hidden}
@@ -102,8 +105,9 @@ function AppLayout() {
                     {user.role === 'Student' && (
                         <>
                             <Route path="/" element={<Student />} />
-                            <Route path="/downloads" element={<Downloads />} />
+                            <Route path="/ComplaintStatus" element={<ComplaintStatus />} />
                             <Route path="/lecture-materials" element={<Materials />} />
+                            <Route path="/course-materials/:courseId" element={<CourseMaterials />} />
                         </>
                     )}
 
@@ -113,9 +117,8 @@ function AppLayout() {
                             <Route path="/" element={<Faculty />} />
                             <Route path="/notifications" element={<Notifications />} />
                             <Route path="/upload-materials" element={<Upload />} />
-                            <Route path="/activity-approval" element={<Approval />} />
                             <Route path="/activity-status" element={<Status />} />
-                            <Route path="/history" element={<History />} />
+                            
                             <Route path="/lesson-plan/:unitNumber" element={<LessonPlan />} />
                         </>
                     )}
@@ -125,6 +128,9 @@ function AppLayout() {
                         <>
                             <Route path="/" element={<Admin />} />
                             <Route path="/faculty-assignment" element={<FacultyAssign />} />
+                            <Route path="/complaint-review" element={<ComplaintReview />} />
+                            <Route path="/faculty-score-monitoring" element={<FacultyScoreMonitoring />} />
+                            <Route path="/lecture-materials-monitoring" element={<LectureMaterialsMonitoring />} />
                         </>
                     )}
 

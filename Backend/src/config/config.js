@@ -12,8 +12,8 @@ const config = {
     db: {
         host: process.env.DB_HOST || "localhost",
         user: process.env.DB_USER || "root",
-        password: process.env.DB_PASSWORD || "Yogesh@200516",
-        database: process.env.DB_NAME || "wiki_page",
+        password: process.env.DB_PASSWORD || "sabari@21",
+        database: process.env.DB_NAME || "academic_learning",
         port: process.env.DB_PORT || 3306,
         connectionLimit: 10,
         waitForConnections: true,
